@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './views/app.component';
+import { AppComponent } from './views/app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialFeaturesModule } from './material-features.module';
 import { environment } from 'src/environments/environment';
@@ -11,11 +11,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { AuthenticationComponent } from './views/authentication/authentication.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    AuthenticationComponent
   ],
   imports: [
     BrowserModule,
