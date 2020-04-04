@@ -1,6 +1,8 @@
 <div class="container">
     <div class="login-style">
-      <ngx-auth-firebaseui
+      <ngx-auth-firebaseui 
+      (onSuccess)="saveUser($event)"
+      (onError)="handleError($event)"
               [providers]="[]">
               </ngx-auth-firebaseui>
     </div>
