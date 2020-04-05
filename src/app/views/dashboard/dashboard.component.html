@@ -1,5 +1,9 @@
 <mat-toolbar color="primary">
-    <span>Your Title</span>
-    <span fxFlex></span>
+  <div class="group-item">
+    <span>TennisPart!</span>
+  </div>
+  <span class="fill-remaining-space"></span>
+  <div>
     <ngx-auth-firebaseui-avatar (onSignOut)="logedOut($event)"></ngx-auth-firebaseui-avatar>
-  </mat-toolbar>
+  </div>
+</mat-toolbar>

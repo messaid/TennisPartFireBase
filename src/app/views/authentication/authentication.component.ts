@@ -15,7 +15,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   saveUser($event) {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['dashboard']);
   }
 
 }

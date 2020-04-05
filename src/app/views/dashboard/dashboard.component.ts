@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LinkMenuItem } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,13 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  public links: LinkMenuItem[];
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.links = [
+      {icon: 'home', text: 'Home'},
+      {icon: 'favorite', text: 'Favorite'},
+      {icon: 'add', text: 'Add'},
+    ];
   }
-  logedOut($event){
-    console.log('LOOOOOOOOGOUUUUUUUUT');
-    console.log($event);
+
+  logedOut($event) {
+    this.router.navigate(['authenticate']);
   }
 
 }

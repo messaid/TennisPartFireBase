@@ -5,9 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
 
 const routes: Routes = [
-  {path : '', component: AuthenticationComponent},
-  {path : 'dashboard', component: DashboardComponent, canActivate : [LoggedInGuard]},
-  {path : '**', redirectTo: ''}];
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'authenticate', component: AuthenticationComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate : [LoggedInGuard]},
+  { path : '**', redirectTo: ''}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
