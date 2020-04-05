@@ -12,6 +12,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AuthenticationComponent } from './views/authentication/authentication.component';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './store/reducers/app.reducer';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { AuthenticationComponent } from './views/authentication/authentication.c
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    StoreModule.forRoot(appReducers),
     NgxAuthFirebaseUIModule.forRoot(environment.firebaseConfig, null,
       {
         enableFirestoreSync: true,
