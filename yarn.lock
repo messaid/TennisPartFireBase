@@ -104,6 +104,11 @@
     "@angular-devkit/core" "8.0.6"
     rxjs "6.4.0"
 
+"@angular-material-extensions/password-strength@^4.1.1":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@angular-material-extensions/password-strength/-/password-strength-4.1.2.tgz#302cb5143e883ff505f9add5dd193101edca0153"
+  integrity sha512-f7i6W2pPA2Ra1O0fr36L4S/Grqh0y/bDoCdI+2RGAIWQUwRBJcjTWUyP2gMV/HnFahHgIbBcavMPB/cBmTWcMA==
+
 "@angular/animations@~8.0.1":
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-8.0.3.tgz#9fc82919b8eb28d4d1a9ff93095907acb2a64e91"
@@ -181,10 +186,17 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/fire@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-6.0.0.tgz#c1dbae9e78ed74af951fb7222108c444300a4d15"
-  integrity sha512-zWhaJaZPtfJKiNSb1I3WqqvopW0fN3S61w4PjPdsm5WME+9M9alP0zpRVclpbCU26LpBSLhrRrSLyn3ROlAOIw==
+"@angular/fire@^5.1.1":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-5.4.2.tgz#fb2d54935de0d83789e940e5f57a6ffc0e1ef4eb"
+  integrity sha512-QzB5d1wtqr9jxfsVNv2+569MlfK4/QrrpNy0IngOHdxS4FBbXqMOcx37iv1m2mzJv9zlGUddUX44IZP5Xfb3cw==
+
+"@angular/flex-layout@^8.0.0-beta.26":
+  version "8.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-8.0.0-beta.27.tgz#a697d5a90e6d04c06b02ee872f88f384d1723f7c"
+  integrity sha512-qmpvQPesU4ZQ56IscwgmVRpK2UnyV+gwvXUql7TMv0QV215hLcHczjGsrKkLfW2By5E7XEyDat9br72uVXcPMw==
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/forms@~8.0.1":
   version "8.0.3"
@@ -4614,6 +4626,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+material-icons@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/material-icons/-/material-icons-0.3.1.tgz#425e06e2448632d6249d6e1ffe2993682c5b171e"
+  integrity sha512-5Hbj76A6xDPcDZEbM4oxTknhWuMwGWnAHVLLPCEq9eVlcHb0fn4koU9ZeyMy1wjARtDEPAHfd5ZdL2Re5hf0zQ==
+
 material@^0.4.3:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/material/-/material-0.4.3.tgz#312d087fadf08210bd79dd3c36d0e0d51384d82d"
@@ -4904,10 +4921,12 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-ngx-auth-firebaseui@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/ngx-auth-firebaseui/-/ngx-auth-firebaseui-4.0.3.tgz#43c0f7918236b00d1813ff0f7dc4d9ca46443230"
-  integrity sha512-64TEpChNecrjjuUV8gZEBbPKM2ogcyH3ROPOct+rd3L0nKVQQohohnGQ7m+LTb3zMoz7vvHk+u44yFunkqiSwA==
+ngx-auth-firebaseui@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/ngx-auth-firebaseui/-/ngx-auth-firebaseui-3.5.0.tgz#41b82c03785f354ef2576134bbcf9d62307e7a6b"
+  integrity sha512-hURdZ2Z7mF/P5h7eVwxjjqDaEbjHrWXolCEPtx/JVTKvCkpRQv5n8VeL2GqjobdHheEYC17cUW5ENoy1dmLN1A==
+  dependencies:
+    "@angular-material-extensions/password-strength" "^4.1.1"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -4965,7 +4984,7 @@ node-libs-browser@^2.0.0:
     util "^0.11.0"
     vm-browserify "^1.0.1"
 
-node-pre-gyp@*, node-pre-gyp@^0.14.0:
+node-pre-gyp@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.14.0.tgz#9a0596533b877289bcad4e143982ca3d904ddc83"
   integrity sha512-+CvDC7ZttU/sSt9rFjix/P05iS43qHCOOGzcr3Ry99bXG7VX953+vFyEuph/tfqoYu8dttBkE86JSKBO2OzcxA==
@@ -6157,6 +6176,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+roboto-fontface@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/roboto-fontface/-/roboto-fontface-0.10.0.tgz#7eee40cfa18b1f7e4e605eaf1a2740afb6fd71b0"
+  integrity sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g==
 
 run-async@^2.2.0:
   version "2.4.0"
