@@ -25,7 +25,14 @@ import { AuthenticationComponent } from './views/authentication/authentication.c
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    NgxAuthFirebaseUIModule.forRoot(environment.firebaseConfig),
+    NgxAuthFirebaseUIModule.forRoot(environment.firebaseConfig, null,
+      {
+        enableFirestoreSync: true,
+        toastMessageOnAuthSuccess: true,
+        toastMessageOnAuthError: true,
+        authGuardFallbackURL: '/',
+        authGuardLoggedInURL: '/dashboard',
+      }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialFeaturesModule

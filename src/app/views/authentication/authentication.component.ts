@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authentication',
@@ -7,15 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
    }
 
   ngOnInit() {
   }
 
   saveUser($event) {
-    console.log('AAAAAAAAAAAAA');
-    console.log($event);
+    this.router.navigate(['/dashboard']);
   }
 
 }

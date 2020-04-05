@@ -11,5 +11,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
   }
+  logedOut($event){
+    console.log('LOOOOOOOOGOUUUUUUUUT');
+    console.log($event);
+  }
 
 }
