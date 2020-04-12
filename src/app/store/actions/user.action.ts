@@ -1,8 +1,9 @@
 import { createAction, props } from '@ngrx/store';
+import { User } from 'src/app/models/user';
 
-export const setDisplayName = createAction(
-    '[Session] Set Current User Login',
-    props<{userName: string}>());
+export const setUser = createAction(
+    '[Session] Set Current User',
+    props<{user: User}>());
 
-export const resetUserDisplayName = createAction('[Session] Delete Current User display name');
+export const resetUser = createAction('[Session] Delete Current User display name');
 

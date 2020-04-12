@@ -4,7 +4,12 @@ import { createSelector } from '@ngrx/store';
 
 export const selectSession = (state: IAppState) => state.user;
 
+export const selectUser = createSelector(
+  selectSession,
+  (state: IUserState) => state.currentuser
+);
+
 export const selectUserDisplayName = createSelector(
   selectSession,
-  (state: IUserState) => state.displayName
+  (state: IUserState) => state.currentuser.displayName
 );

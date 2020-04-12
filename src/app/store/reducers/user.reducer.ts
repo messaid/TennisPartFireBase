@@ -4,9 +4,9 @@ import * as UserActions from '../actions/user.action';
 
 const reducer = createReducer(
   initialUserState,
-  on(UserActions.resetUserDisplayName, state => (initialUserState)),
-  on(UserActions.setDisplayName, (state, { userName }) => {
-    return { ...state, displayName : userName };
+  on(UserActions.resetUser, state => (initialUserState)),
+  on(UserActions.setUser, (state, { user }) => {
+    return { ...state, currentuser : user };
   }),
 );
 

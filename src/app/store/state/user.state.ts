@@ -1,7 +1,8 @@
+import { User } from './../../models/user';
 export interface IUserState {
-    displayName: string;
+    currentuser: User;
   }
 
 export const initialUserState: IUserState = {
-    displayName: '',
+  currentuser: new User(),
 };
