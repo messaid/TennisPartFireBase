@@ -9,9 +9,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { AuthenticationComponent } from './views/authentication/authentication.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/reducers/app.reducer';
 
@@ -19,7 +17,6 @@ import { appReducers } from './store/reducers/app.reducer';
   declarations: [
     AppComponent,
     DashboardComponent,
-    AuthenticationComponent
   ],
   imports: [
     BrowserModule,
@@ -28,13 +25,6 @@ import { appReducers } from './store/reducers/app.reducer';
     AngularFireAuthModule,
     AngularFireStorageModule,
     StoreModule.forRoot(appReducers),
-    NgxAuthFirebaseUIModule.forRoot(environment.firebaseConfig, null,
-      {
-        enableFirestoreSync: true,
-        toastMessageOnAuthSuccess: true,
-        toastMessageOnAuthError: true,
-        authGuardFallbackURL: 'authenticate',
-      }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialFeaturesModule
