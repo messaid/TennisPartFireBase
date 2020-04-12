@@ -12,14 +12,21 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/reducers/app.reducer';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
