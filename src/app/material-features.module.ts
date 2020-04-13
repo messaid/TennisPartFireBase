@@ -3,7 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import {
     MatButtonModule, MatTableModule, MatSortModule, MatInputModule, MAT_DIALOG_DATA, MatToolbarModule,
     MatIconModule, MatTooltipModule, MatListModule, MatSidenavModule,
-    MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatMenuModule,
+    MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatMenuModule, MatTabsModule,
     MatTreeModule, MatCheckboxModule, MatPaginatorModule, MatSelectModule, MatCardModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,7 +37,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatExpansionModule,
         MatCardModule,
         MatPaginatorModule,
-        MatSelectModule
+        MatSelectModule,
+        MatTabsModule,
     ],
     exports: [
         MatTreeModule,
@@ -57,7 +58,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
         BrowserAnimationsModule,
         MatExpansionModule,
         MatPaginatorModule,
-        MatSelectModule
+        MatSelectModule,
+        MatTabsModule,
+        MatCardModule
     ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'en-US' },

@@ -34,7 +34,7 @@ export class AuthService {
         user.get().then(x => {
           this.currentUser = x.data();
           this.storeUser.dispatch(UserActions.setUser({ user: currUser}));
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashboard']);
         });
        }).catch(err => {
          console.log(err);
@@ -55,7 +55,7 @@ export class AuthService {
             this.storeUser.dispatch(UserActions.setUser({ user:{uid : this.currentUser.uid,
             displayName : this.currentUser.displayName ,
             email : this.currentUser.email, phoneNumber : this.currentUser.phoneNumber} }));
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
           })
         });
       }).catch(err => err);
@@ -66,7 +66,7 @@ export class AuthService {
     .then(() => {
       this.currentUser = null;
       this.storeUser.dispatch(UserActions.resetUser);
-      this.ngZone.run(() => this.router.navigate(['/login']));
+      this.ngZone.run(() => this.router.navigate(['/authentication']));
 
     }).catch((err) => {
       console.log(err);
@@ -79,7 +79,7 @@ export class AuthService {
         this.firestore.collection('users').ref.where('email', '==', currentUser.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
-            this.ngZone.run(() => this.router.navigate(['/']));
+            this.ngZone.run(() => this.router.navigate(['/dashboard']));
             this.storeUser.dispatch(UserActions.setUser({ user: {uid : this.currentUser.uid,
             displayName : this.currentUser.displayName,
             email : this.currentUser.email,
@@ -87,7 +87,7 @@ export class AuthService {
           });
         });
       } else {
-        this.ngZone.run(() => this.router.navigate(['/login']));
+        this.ngZone.run(() => this.router.navigate(['/authentication']));
       }
     });
   }

@@ -12,9 +12,17 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
   public loginForm = new FormGroup({
-    email: new FormControl('',  Validators.required),
+    email: new FormControl('',  [Validators.required, Validators.email]),
     password: new FormControl('',  Validators.required),
   });
+
+  getErrorMessage() {
+    if (this.loginForm.controls['email'].hasError('required')) {
+      return 'You must enter an email';
+    }
+
+    return this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' : '';
+  }
 
   login(formData: FormData) {
     this.authService.login(formData['email'], formData['password']);
