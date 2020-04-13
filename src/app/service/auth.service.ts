@@ -4,7 +4,6 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as UserActions from '../store/actions/user.action';
 
@@ -14,8 +13,8 @@ import * as UserActions from '../store/actions/user.action';
 export class AuthService {
 
   public currentUser: any;
-  public userStatus: string;
-  public userStatusChanges: BehaviorSubject<string> = new BehaviorSubject<string>(this.userStatus);
+  // public userStatus: string;
+  // public userStatusChanges: BehaviorSubject<string> = new BehaviorSubject<string>(this.userStatus);
 
   constructor(private afAuth: AngularFireAuth,
               private ngZone: NgZone,
@@ -39,9 +38,9 @@ export class AuthService {
        .then(user => {
         user.get().then(x => {
           // return the user data
-          //console.log(x.data());
+          // console.log(x.data());
           this.currentUser = x.data();
-          this.setUserStatus(this.currentUser);
+          // this.setUserStatus(this.currentUser);
           this.storeUser.dispatch(UserActions.setUser({ user: currUser}));
           this.router.navigate(['/']);
         });
@@ -62,9 +61,9 @@ export class AuthService {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
             // setUserStatus
-            this.setUserStatus(this.currentUser);
-            console.log('userRef login', userRef.data());
-            console.log('user.user login', user.user);
+            // this.setUserStatus(this.currentUser);
+            // console.log('userRef login', userRef.data());
+            // console.log('user.user login', user.user);
             this.storeUser.dispatch(UserActions.setUser({ user:{uid : this.currentUser.uid,
             displayName : this.currentUser.displayName ,
             email : this.currentUser.email, phoneNumber : this.currentUser.phoneNumber} }));
@@ -77,11 +76,11 @@ export class AuthService {
   logOut() {
     this.afAuth.auth.signOut()
     .then(() => {
-      console.log('user signed Out successfully');
+      // console.log('user signed Out successfully');
       // set current user to null to be logged out
       this.currentUser = null;
       // set the listenener to be null, for the UI to react
-      this.setUserStatus(null);
+      // this.setUserStatus(null);
       this.storeUser.dispatch(UserActions.resetUser);
       this.ngZone.run(() => this.router.navigate(['/login']));
 
@@ -90,20 +89,23 @@ export class AuthService {
     });
   }
 
-  userChanges(){
+  userChanges() {
     this.afAuth.auth.onAuthStateChanged(currentUser => {
-      console.log('je modifie le user');
-      if(currentUser){
+      // console.log('je modifie le user');
+      if(currentUser) {
         this.firestore.collection('users').ref.where('email', '==', currentUser.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
             // setUserStatus
-            console.log('userRef usechanegs', currentUser);
-            this.storeUser.dispatch(UserActions.setUser({ user:{uid : this.currentUser.uid,
-            displayName : this.currentUser.displayName , email : this.currentUser.email, phoneNumber : this.currentUser.phoneNumber} }));
-            this.setUserStatus(this.currentUser);
-            console.log('je modifie le user');
-            console.log('userstatus', this.userStatus);
+            // console.log('userRef usechanegs', currentUser);
+            this.ngZone.run(() => this.router.navigate(['/']));
+            this.storeUser.dispatch(UserActions.setUser({ user: {uid : this.currentUser.uid,
+            displayName : this.currentUser.displayName,
+            email : this.currentUser.email,
+            phoneNumber : this.currentUser.phoneNumber} }));
+            // this.setUserStatus(this.currentUser);
+            // console.log('je modifie le user');
+            // console.log('userstatus', this.userStatus);
           });
         });
       } else {
@@ -115,8 +117,8 @@ export class AuthService {
     });
   }
 
-    setUserStatus(userStatus: any): void {
-      this.userStatus = userStatus;
-      this.userStatusChanges.next(userStatus);
-    }
-}
+//     setUserStatus(userStatus: any): void {
+//       this.userStatus = userStatus;
+//       this.userStatusChanges.next(userStatus);
+//     }
+ }

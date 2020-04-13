@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './views/register/register.component';
 import { LoginComponent } from './views/login/login.component';
+import { AuthGuardService } from './guard/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', component: DashboardComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'dashboard', component: DashboardComponent}];
+  { path: 'login', component: LoginComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
