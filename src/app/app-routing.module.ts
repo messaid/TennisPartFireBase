@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './views/register/register.component';
 import { LoginComponent } from './views/login/login.component';
-import { AuthGuardService } from './guard/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent},
