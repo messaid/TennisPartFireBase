@@ -53,6 +53,7 @@ export class AuthService {
     }
 
     login(email: string, password: string) {
+      this.spinnerService.updateMessage('Connecting...');
       this.spinnerService.start();
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {

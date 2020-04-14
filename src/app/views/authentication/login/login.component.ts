@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
    // this.authService.errorMatcher$.subscribe(data => {this.authError = data; });
-    console.log(this.spinnerService.status);
+   this.authError$ = this.authService.errorMatcher$.pipe();
   }
 
 }
