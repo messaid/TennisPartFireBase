@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { ErrorMessages } from 'src/app/constants/error-messages';
 import { ThrowStmt } from '@angular/compiler';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class RegisterComponent implements OnInit {
 
+  public authError$: Observable<string>;
   public lastValiNumber = "";
   constructor(private authService: AuthService) { }
 
@@ -72,6 +74,7 @@ export class RegisterComponent implements OnInit {
       formData['phonenumber']);
   }
   ngOnInit() {
+    this.authError$ = this.authService.errorMatcher$.pipe();
     this.onChangesValuesPhone();
     this.passwordEqual();
   }

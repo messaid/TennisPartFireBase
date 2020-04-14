@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as UserActions from '../store/actions/user.action';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,9 @@ import * as UserActions from '../store/actions/user.action';
 export class AuthService {
 
   public currentUser: any;
+  private eventAuthError = new BehaviorSubject<string>('') ;
+  public errorMatcher$ = this.eventAuthError.asObservable();
+
   constructor(private afAuth: AngularFireAuth,
               private ngZone: NgZone,
               private storeUser: Store<{ state: IUserState }>,
@@ -37,7 +41,7 @@ export class AuthService {
           this.router.navigate(['/dashboard']);
         });
        }).catch(err => {
-         console.log(err);
+        this.eventAuthError.next(err);
        });
 
      })
@@ -48,17 +52,19 @@ export class AuthService {
 
     login(email: string, password: string) {
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((user)=>{
+      .then((user) => {
         this.firestore.collection('users').ref.where('email', '==', user.user.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
-            this.storeUser.dispatch(UserActions.setUser({ user:{uid : this.currentUser.uid,
+            this.storeUser.dispatch(UserActions.setUser({ user: { uid : this.currentUser.uid,
             displayName : this.currentUser.displayName ,
             email : this.currentUser.email, phoneNumber : this.currentUser.phoneNumber} }));
             this.router.navigate(['/dashboard']);
-          })
+          });
         });
-      }).catch(err => err);
+      }).catch(err => {
+        this.eventAuthError.next(err);
+       });
   }
 
   logOut() {
