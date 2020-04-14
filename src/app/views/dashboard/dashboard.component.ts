@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
         } else {
           initials = data.split(' ')[0].charAt(0);
         }
-        this.userInitial.next(initials);
+        this.userInitial.next(initials.toUpperCase());
       }
     });
   }
