@@ -1,5 +1,5 @@
+<p class="alert-message" *ngIf="authError$ | async">{{authError$ | async}}</p>
 <mat-card class="mat-card-class">
-  <p>Display if error</p>
   <form (ngSubmit)="login(loginForm.value)" class="form-class" [formGroup]="loginForm">
     <mat-form-field class="login-full-width">
       <mat-label>Email</mat-label>

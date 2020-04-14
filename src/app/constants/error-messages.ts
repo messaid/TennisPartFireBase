@@ -12,6 +12,6 @@ export class ErrorMessages {
     }
 
     public static PASSWORD_INVALID(): string {
-        return `Missmatch password`;
+        return `there is a missmatch between passwords`;
     }
 }

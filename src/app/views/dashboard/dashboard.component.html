@@ -1,10 +1,10 @@
-<mat-toolbar color="primary">
+<mat-toolbar style="background-color: #F4A460;">
   <div class="group-item">
     <span>Welcome {{userDisplayName$ | async}} in your TennisPart</span>
   </div>
   <span class="fill-remaining-space"></span>
   <div>
-    <button mat-button *ngIf="userStatus$ | async" (click)="logout()">Logout</button>
+    <button mat-button *ngIf="userStatus$ | async" class="button-logout" (click)="logout()">Logout</button>
   </div>
 </mat-toolbar>
 <div style="padding-top: 200px; font-size: 100px; margin:0 auto;">New website in progress!</div>
