@@ -12,6 +12,6 @@ export class ErrorMessages {
     }
 
     public static PASSWORD_INVALID(): string {
-        return `The value must be a strictly positive number.`;
+        return `Missmatch password`;
     }
 }
