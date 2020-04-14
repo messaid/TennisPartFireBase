@@ -12,9 +12,10 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/reducers/app.reducer';
-import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
+import { LoginComponent } from './views/authentication/login/login.component';
+import { RegisterComponent } from './views/authentication/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationComponent } from './views/authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
