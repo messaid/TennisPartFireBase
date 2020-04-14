@@ -3,6 +3,8 @@ export class User {
     displayName: string;
     email: string;
     phoneNumber: string;
+    ranking?: string;
+    postalCode?: string;
     photoURL?: string;
     providerId?: string;
 }

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as UserActions from '../store/actions/user.action';
 import { BehaviorSubject } from 'rxjs';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class AuthService {
   public errorMatcher$ = this.eventAuthError.asObservable();
 
   constructor(private afAuth: AngularFireAuth,
+              private spinnerService: SpinnerService,
               private ngZone: NgZone,
               private storeUser: Store<{ state: IUserState }>,
               private firestore: AngularFirestore,
@@ -51,6 +53,7 @@ export class AuthService {
     }
 
     login(email: string, password: string) {
+      this.spinnerService.start();
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.firestore.collection('users').ref.where('email', '==', user.user.email).onSnapshot(snap => {
@@ -60,10 +63,12 @@ export class AuthService {
             displayName : this.currentUser.displayName ,
             email : this.currentUser.email, phoneNumber : this.currentUser.phoneNumber} }));
             this.router.navigate(['/dashboard']);
+            this.spinnerService.stop();
           });
         });
       }).catch(err => {
         this.eventAuthError.next(err);
+        this.spinnerService.stop();
        });
   }
 

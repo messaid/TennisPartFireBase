@@ -1,13 +1,14 @@
+import { SpinnerService } from './../../service/spinner.service';
+import { ProfilComponent } from './../profil/profil.component';
 import { User } from './../../models/user';
 import { selectUser, selectUserDisplayName } from './../../store/selectors/user.selector';
 import { IUserState } from './../../store/state/user.state';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LinkMenuItem } from 'ngx-auth-firebaseui';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AuthService } from 'src/app/service/auth.service';
 import { isNullOrUndefined } from 'util';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,10 @@ export class DashboardComponent implements OnInit {
   public userInitial$ = this.userInitial.asObservable();
   public userDisplayName$: Observable<string>;
   constructor(private authService: AuthService,
+              public dialog: MatDialog,
+              private spinnerService: SpinnerService,
               private storeUser: Store<{ user: IUserState }>) {
+
     this.userDisplayName$ = this.storeUser.pipe(select(selectUserDisplayName));
     this.userStatus$ = this.storeUser.pipe(select(selectUser));
     this.userDisplayName$.subscribe(data => {
@@ -41,6 +45,14 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     this.authService.logOut();
+  }
+
+  showProfil(){
+    // const dialogRef = this.dialog.open(ProfilComponent, {
+    //   width: '500px',
+    //   disableClose: true,
+    // });
+    this.spinnerService.start();
   }
 
 }
