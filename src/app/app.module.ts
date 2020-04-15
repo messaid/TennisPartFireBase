@@ -21,6 +21,7 @@ import { RankingPipe } from './pipes/ranking.pipe';
 import { SpinnerComponent } from './generic-components/spinner/spinner.component';
 import { SpinnerService } from './service/spinner.service';
 import { MatProgressSpinnerModule } from '@angular/material';
+import { CustomSnackbarComponent } from './generic-components/custom-snackbar/custom-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
     ProfilComponent,
     RankingPipe,
     SpinnerComponent,
+    CustomSnackbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
     BrowserAnimationsModule,
     MaterialFeaturesModule
   ],
-  entryComponents: [ProfilComponent],
+  entryComponents: [ProfilComponent, CustomSnackbarComponent],
   providers: [SpinnerService],
   bootstrap: [AppComponent]
 })
