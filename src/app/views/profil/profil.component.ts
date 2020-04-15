@@ -9,6 +9,7 @@ import { selectRankings, selectUser } from 'src/app/store/selectors/user.selecto
 import { ErrorMessages } from 'src/app/constants/error-messages';
 import { UserDTO } from 'src/app/models/user';
 import { isNullOrUndefined } from 'util';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-profil',
@@ -17,6 +18,7 @@ import { isNullOrUndefined } from 'util';
 })
 
 export class ProfilComponent implements OnInit {
+  private userdoc;
   public userStatus$: Observable<UserDTO>;
   public rankings$: Observable<Array<EnumDisplayedObject>>;
   private lastValidNumber = '';
@@ -30,6 +32,7 @@ export class ProfilComponent implements OnInit {
     phonenumber: new FormControl({ value: ''}, { validators: [Validators.required], updateOn: 'change' }),
   });
   constructor(private dialogRef: MatDialogRef<ProfilComponent>,
+              private authService: AuthService,
               private storeUser: Store<{ user: IUserState }>) {
   }
 
@@ -75,12 +78,13 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.storeUser.pipe(select(selectUser)).subscribe(data =>{
-      this.editUserForm.controls['name'].setValue(data.displayName);
-      this.editUserForm.controls['email'].setValue(data.email);
-      this.editUserForm.controls['phonenumber'].setValue(data.phoneNumber);
-      this.editUserForm.controls['ranking'].setValue(data.ranking);
-      this.editUserForm.controls['zipCode'].setValue(data.postalCode);
+    this.storeUser.pipe(select(selectUser)).subscribe(data => {
+      this.editUserForm.controls['name'].setValue(data.user.displayName);
+      this.editUserForm.controls['email'].setValue(data.user.email);
+      this.editUserForm.controls['phonenumber'].setValue(data.user.phoneNumber);
+      this.editUserForm.controls['ranking'].setValue(data.user.ranking);
+      this.editUserForm.controls['zipCode'].setValue(data.user.postalCode);
+      this.userdoc = data.doc;
     });
     this.rankings$ = this.storeUser.pipe(select(selectRankings));
     this.onChangesValuesPhone();
@@ -92,7 +96,14 @@ export class ProfilComponent implements OnInit {
   }
 
   saveChanges(formData: FormData) {
-    console.log("saved");
+    this.authService.updateUser(this.userdoc, formData['name'], formData['phonenumber'], formData['ranking'], formData['zipCode'])
+    .then(user => {
+      // TO DO SNACK 
+      this.dialogRef.close();
+    }).catch(err => {
+      // TO DO SNACK 
+      console.log(err);
+    });
   }
 
   closePopup() {

@@ -1,12 +1,12 @@
-import { UserDTO } from './../../models/user';
+import { UserDoc } from './../../models/userDoc';
 import { EnumDisplayedObject } from 'src/app/enums/displayed-object-enum';
 import { EnumHelper } from 'src/app/enums/enum-helper';
 export interface IUserState {
-    currentuser: UserDTO;
+    currentuser: UserDoc;
     rankings: Array<EnumDisplayedObject>;
   }
 
 export const initialUserState: IUserState = {
-  currentuser: new UserDTO(),
+  currentuser: new UserDoc(),
   rankings: EnumHelper.initRankingValues(),
 };

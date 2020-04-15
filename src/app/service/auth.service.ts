@@ -1,3 +1,5 @@
+import { UserDoc } from './../models/userDoc';
+import { Collections } from './../constants/collections';
 import { IUserState } from './../store/state/user.state';
 import { UserDTO } from './../models/user';
 import { Injectable, NgZone } from '@angular/core';
@@ -6,7 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as UserActions from '../store/actions/user.action';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
@@ -15,9 +17,9 @@ import { SpinnerService } from './spinner.service';
 export class AuthService {
 
   public currentUser: any;
-  private eventAuthErrorLogin = new BehaviorSubject<string>('') ;
+  private eventAuthErrorLogin = new BehaviorSubject<string>('');
   public eventAuthErrorLogin$ = this.eventAuthErrorLogin.asObservable();
-  private eventAuthErrorRegister = new BehaviorSubject<string>('') ;
+  private eventAuthErrorRegister = new BehaviorSubject<string>('');
   public eventAuthErrorRegister$ = this.eventAuthErrorRegister.asObservable();
 
   constructor(private afAuth: AngularFireAuth,
@@ -30,45 +32,47 @@ export class AuthService {
   register(email: string, password: string, displayName: string, phoneNumber: string) {
 
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-     .then((userResponse) => {
-       const currUser: UserDTO = {
-        uid: userResponse.user.uid,
-        email: userResponse.user.email,
-        displayName,
-        phoneNumber,
-        ranking: null,
-        postalCode: null
-       };
-       this.firestore.collection('users').add(currUser)
-       .then(user => {
-        user.get().then(x => {
-          this.currentUser = x.data();
-          this.storeUser.dispatch(UserActions.setUser({ user: currUser}));
-          this.router.navigate(['/dashboard']);
-        });
-       }).catch(err => {
-        this.eventAuthErrorRegister.next(err);
-       });
+      .then((userResponse) => {
+        const currUser: UserDTO = {
+          uid: userResponse.user.uid,
+          email: userResponse.user.email,
+          displayName,
+          phoneNumber,
+          ranking: null,
+          postalCode: null
+        };
+        this.firestore.collection('users').add(currUser)
+          .then(user => {
+            user.get().then(x => {
+              this.currentUser = x.data();
+              this.storeUser.dispatch(UserActions.setUser({ user: {doc: x.id, user: currUser} }));
+              this.router.navigate(['/dashboard']);
+            });
+          }).catch(err => {
+            this.eventAuthErrorRegister.next(err);
+          });
 
-     })
-     .catch((err) => {
+      })
+      .catch((err) => {
         this.eventAuthErrorRegister.next(err);
-     });
-    }
+      });
+  }
 
-    login(email: string, password: string) {
-      this.spinnerService.updateMessage('Connecting...');
-      this.spinnerService.start();
-      this.afAuth.auth.signInWithEmailAndPassword(email, password)
+  login(email: string, password: string) {
+    this.spinnerService.updateMessage('Connecting...');
+    this.spinnerService.start();
+    this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.firestore.collection('users').ref.where('email', '==', user.user.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
-            console.log(this.currentUser);
-            this.storeUser.dispatch(UserActions.setUser({ user: { uid : this.currentUser.uid,
-            displayName : this.currentUser.displayName, ranking : this.currentUser.ranking,
-            postalCode : this.currentUser.postalCode,
-            email : this.currentUser.email, phoneNumber : this.currentUser.phoneNumber} }));
+            this.storeUser.dispatch(UserActions.setUser({
+              user: {user:{ uid: this.currentUser.uid, displayName: this.currentUser.displayName, 
+                            ranking: this.currentUser.ranking, postalCode: this.currentUser.postalCode,
+                            email: this.currentUser.email, phoneNumber: this.currentUser.phoneNumber}, 
+                    doc: userRef.id
+              }
+            }));
             this.router.navigate(['/dashboard']);
             this.spinnerService.stop();
           });
@@ -76,32 +80,35 @@ export class AuthService {
       }).catch(err => {
         this.eventAuthErrorLogin.next(err);
         this.spinnerService.stop();
-       });
+      });
   }
 
   logOut() {
     this.afAuth.auth.signOut()
-    .then(() => {
-      this.currentUser = null;
-      this.storeUser.dispatch(UserActions.resetUser);
-      this.ngZone.run(() => this.router.navigate(['/authentication']));
+      .then(() => {
+        this.currentUser = null;
+        this.storeUser.dispatch(UserActions.resetUser);
+        this.ngZone.run(() => this.router.navigate(['/authentication']));
 
-    }).catch((err) => {
-      console.log(err);
-    });
+      }).catch((err) => {
+        console.log(err);
+      });
   }
 
   userChanges() {
     this.afAuth.auth.onAuthStateChanged(currentUser => {
-      if(currentUser) {
+      if (currentUser) {
         this.firestore.collection('users').ref.where('email', '==', currentUser.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
             this.ngZone.run(() => this.router.navigate(['/dashboard']));
-            this.storeUser.dispatch(UserActions.setUser({ user: {uid : this.currentUser.uid,
-            displayName : this.currentUser.displayName, ranking : this.currentUser.ranking,
-            email : this.currentUser.email, postalCode : this.currentUser.postalCode,
-            phoneNumber : this.currentUser.phoneNumber} }));
+            this.storeUser.dispatch(UserActions.setUser({
+              user: {user: { uid: this.currentUser.uid, displayName: this.currentUser.displayName, 
+                            ranking: this.currentUser.ranking, email: this.currentUser.email, 
+                            postalCode: this.currentUser.postalCode, phoneNumber: this.currentUser.phoneNumber},
+                    doc: userRef.id
+              }
+            }));
           });
         });
       } else {
@@ -109,4 +116,10 @@ export class AuthService {
       }
     });
   }
- }
+
+  updateUser(userDoc: string, displayName: string, phoneNumber: string, ranking?: string, postalCode?: string){
+    return this.firestore.collection(Collections.USERS_COLLECTION()).doc(userDoc).update(
+      { displayName, phoneNumber, ranking, postalCode});
+  }
+
+}
