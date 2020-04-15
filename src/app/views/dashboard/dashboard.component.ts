@@ -27,12 +27,12 @@ export class DashboardComponent implements OnInit {
 
     this.userDisplayName$ = this.storeUser.pipe(select(selectUserDisplayName));
     this.storeUser.pipe(select(selectUser)).subscribe(data => {
-      if (!isNullOrUndefined(data.displayName)) {
+      if (!isNullOrUndefined(data.user.displayName)) {
         let initials = '';
-        if (data.displayName.split(' ').length > 1) {
-          initials = data.displayName.split(' ')[0].charAt(0) + data.displayName.split(' ')[1].charAt(0);
+        if (data.user.displayName.split(' ').length > 1) {
+          initials = data.user.displayName.split(' ')[0].charAt(0) + data.user.displayName.split(' ')[1].charAt(0);
         } else {
-          initials = data.displayName.split(' ')[0].charAt(0);
+          initials = data.user.displayName.split(' ')[0].charAt(0);
         }
         this.userInitial.next(initials.toUpperCase());
       }
