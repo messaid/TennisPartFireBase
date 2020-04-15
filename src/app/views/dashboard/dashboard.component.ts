@@ -48,11 +48,10 @@ export class DashboardComponent implements OnInit {
   }
 
   showProfil(){
-    // const dialogRef = this.dialog.open(ProfilComponent, {
-    //   width: '500px',
-    //   disableClose: true,
-    // });
-    this.spinnerService.start();
+    const dialogRef = this.dialog.open(ProfilComponent, {
+      width: '500px',
+      disableClose: true,
+    });
   }
 
 }
