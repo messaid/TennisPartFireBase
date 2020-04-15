@@ -17,7 +17,6 @@ export class SpinnerService {
    * Launch spinner
    */
   public start(): void {
-    console.log('in');
     if (this._status.getValue() === false) {
       this._status.next(true);
     }

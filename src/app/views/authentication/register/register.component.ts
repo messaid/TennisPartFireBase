@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
       formData['phonenumber']);
   }
   ngOnInit() {
-    this.authError$ = this.authService.errorMatcher$.pipe();
+    this.authError$ = this.authService.eventAuthErrorRegister$.pipe();
     this.onChangesValuesPhone();
     this.passwordEqual();
   }

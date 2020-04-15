@@ -15,8 +15,10 @@ import { SpinnerService } from './spinner.service';
 export class AuthService {
 
   public currentUser: any;
-  private eventAuthError = new BehaviorSubject<string>('') ;
-  public errorMatcher$ = this.eventAuthError.asObservable();
+  private eventAuthErrorLogin = new BehaviorSubject<string>('') ;
+  public eventAuthErrorLogin$ = this.eventAuthErrorLogin.asObservable();
+  private eventAuthErrorRegister = new BehaviorSubject<string>('') ;
+  public eventAuthErrorRegister$ = this.eventAuthErrorRegister.asObservable();
 
   constructor(private afAuth: AngularFireAuth,
               private spinnerService: SpinnerService,
@@ -43,7 +45,7 @@ export class AuthService {
           this.router.navigate(['/dashboard']);
         });
        }).catch(err => {
-        this.eventAuthError.next(err);
+        this.eventAuthErrorRegister.next(err);
        });
 
      })
@@ -68,7 +70,7 @@ export class AuthService {
           });
         });
       }).catch(err => {
-        this.eventAuthError.next(err);
+        this.eventAuthErrorLogin.next(err);
         this.spinnerService.stop();
        });
   }
