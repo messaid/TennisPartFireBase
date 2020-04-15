@@ -120,6 +120,9 @@ export class AuthService {
   updateUser(userDoc: string, displayName: string, phoneNumber: string, ranking?: string, postalCode?: string){
     return this.firestore.collection(Collections.USERS_COLLECTION()).doc(userDoc).update(
       { displayName, phoneNumber, ranking, postalCode});
+
+      // this.firestore.collection(Collections.USERS_COLLECTION()).ref.where('email', '==', 'm-essaid@live.fr')
+      // .get().then(data => console.log(data));
   }
 
 }
