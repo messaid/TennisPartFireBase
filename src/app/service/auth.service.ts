@@ -30,7 +30,8 @@ export class AuthService {
               private router: Router) { }
 
   register(email: string, password: string, displayName: string, phoneNumber: string) {
-
+    this.spinnerService.updateMessage('Registering...');
+    this.spinnerService.start();
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((userResponse) => {
         const currUser: UserDTO = {
@@ -50,11 +51,13 @@ export class AuthService {
             });
           }).catch(err => {
             this.eventAuthErrorRegister.next(err);
+            this.spinnerService.stop();
           });
 
       })
       .catch((err) => {
         this.eventAuthErrorRegister.next(err);
+        this.spinnerService.stop();
       });
   }
 

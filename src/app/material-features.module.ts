@@ -61,6 +61,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatPaginatorModule,
         MatSelectModule,
         MatTabsModule,
+        MatSnackBarModule,
         MatCardModule
     ],
     providers: [

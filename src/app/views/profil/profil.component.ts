@@ -1,6 +1,6 @@
 import { IUserState } from './../../store/state/user.state';
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { ErrorMessages } from 'src/app/constants/error-messages';
 import { UserDTO } from 'src/app/models/user';
 import { isNullOrUndefined } from 'util';
 import { AuthService } from 'src/app/service/auth.service';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 @Component({
   selector: 'app-profil',
@@ -33,6 +34,7 @@ export class ProfilComponent implements OnInit {
   });
   constructor(private dialogRef: MatDialogRef<ProfilComponent>,
               private authService: AuthService,
+              private spinnerService: SpinnerService,
               private storeUser: Store<{ user: IUserState }>) {
   }
 
@@ -50,6 +52,7 @@ export class ProfilComponent implements OnInit {
     );
   }
 
+  
   onChangesValuesZipCode(): void {
     this.editUserForm.get('zipCode').valueChanges.subscribe(
       val => {
@@ -96,13 +99,17 @@ export class ProfilComponent implements OnInit {
   }
 
   saveChanges(formData: FormData) {
+    this.spinnerService.updateMessage('Updating profil...');
+    this.spinnerService.start();
     this.authService.updateUser(this.userdoc, formData['name'], formData['phonenumber'], formData['ranking'], formData['zipCode'])
     .then(user => {
       // TO DO SNACK 
-      this.dialogRef.close();
+      this.dialogRef.close();      
+      this.spinnerService.stop();
     }).catch(err => {
       // TO DO SNACK 
       console.log(err);
+      this.spinnerService.stop();
     });
   }
 
