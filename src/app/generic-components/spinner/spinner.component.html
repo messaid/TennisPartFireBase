@@ -1,0 +1,11 @@
+<div *ngIf="spinnerService.status | async">
+    <div class="full-div-to-hide"></div>
+    <div class="full-div">
+        <div class="spinner-custo">
+            <mat-spinner></mat-spinner>
+            <div class="span-custo">
+                <span>{{spinnerService.message | async}}</span>
+            </div>
+        </div>
+    </div>
+</div>

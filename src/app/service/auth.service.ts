@@ -1,5 +1,5 @@
 import { IUserState } from './../store/state/user.state';
-import { User } from './../models/user';
+import { UserDTO } from './../models/user';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as UserActions from '../store/actions/user.action';
 import { BehaviorSubject } from 'rxjs';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,13 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
 
   public currentUser: any;
-  private eventAuthError = new BehaviorSubject<string>('') ;
-  public errorMatcher$ = this.eventAuthError.asObservable();
+  private eventAuthErrorLogin = new BehaviorSubject<string>('') ;
+  public eventAuthErrorLogin$ = this.eventAuthErrorLogin.asObservable();
+  private eventAuthErrorRegister = new BehaviorSubject<string>('') ;
+  public eventAuthErrorRegister$ = this.eventAuthErrorRegister.asObservable();
 
   constructor(private afAuth: AngularFireAuth,
+              private spinnerService: SpinnerService,
               private ngZone: NgZone,
               private storeUser: Store<{ state: IUserState }>,
               private firestore: AngularFirestore,
@@ -27,11 +31,13 @@ export class AuthService {
 
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
      .then((userResponse) => {
-       const currUser: User = {
+       const currUser: UserDTO = {
         uid: userResponse.user.uid,
         email: userResponse.user.email,
         displayName,
         phoneNumber,
+        ranking: null,
+        postalCode: null
        };
        this.firestore.collection('users').add(currUser)
        .then(user => {
@@ -41,29 +47,35 @@ export class AuthService {
           this.router.navigate(['/dashboard']);
         });
        }).catch(err => {
-        this.eventAuthError.next(err);
+        this.eventAuthErrorRegister.next(err);
        });
 
      })
      .catch((err) => {
-        console.log('An error ocurred: ', err);
+        this.eventAuthErrorRegister.next(err);
      });
     }
 
     login(email: string, password: string) {
+      this.spinnerService.updateMessage('Connecting...');
+      this.spinnerService.start();
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.firestore.collection('users').ref.where('email', '==', user.user.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
+            console.log(this.currentUser);
             this.storeUser.dispatch(UserActions.setUser({ user: { uid : this.currentUser.uid,
-            displayName : this.currentUser.displayName ,
+            displayName : this.currentUser.displayName, ranking : this.currentUser.ranking,
+            postalCode : this.currentUser.postalCode,
             email : this.currentUser.email, phoneNumber : this.currentUser.phoneNumber} }));
             this.router.navigate(['/dashboard']);
+            this.spinnerService.stop();
           });
         });
       }).catch(err => {
-        this.eventAuthError.next(err);
+        this.eventAuthErrorLogin.next(err);
+        this.spinnerService.stop();
        });
   }
 
@@ -87,8 +99,8 @@ export class AuthService {
             this.currentUser = userRef.data();
             this.ngZone.run(() => this.router.navigate(['/dashboard']));
             this.storeUser.dispatch(UserActions.setUser({ user: {uid : this.currentUser.uid,
-            displayName : this.currentUser.displayName,
-            email : this.currentUser.email,
+            displayName : this.currentUser.displayName, ranking : this.currentUser.ranking,
+            email : this.currentUser.email, postalCode : this.currentUser.postalCode,
             phoneNumber : this.currentUser.phoneNumber} }));
           });
         });

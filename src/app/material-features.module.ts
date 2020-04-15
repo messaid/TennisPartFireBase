@@ -42,6 +42,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ],
     exports: [
         MatTreeModule,
+        MatDialogModule,
         MatButtonModule,
         MatSlideToggleModule,
         MatTableModule,

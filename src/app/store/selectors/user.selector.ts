@@ -13,3 +13,8 @@ export const selectUserDisplayName = createSelector(
   selectSession,
   (state: IUserState) => state.currentuser.displayName
 );
+
+export const selectRankings = createSelector(
+  selectSession,
+  (state: IUserState) => state.rankings
+);

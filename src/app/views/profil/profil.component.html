@@ -1,0 +1,41 @@
+<div class="title-container">
+  <div class="popup-title">Profil</div>
+  <mat-icon class="close-icon" (click)="closePopup()">close</mat-icon>
+</div>
+<div>
+  <mat-card class="mat-card-class">
+    <form (ngSubmit)="saveChanges(editUserForm.value)" class="form-class" [formGroup]="editUserForm">
+      <mat-form-field class="login-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="login-full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" formControlName="email" disabled>
+      </mat-form-field>
+      <mat-form-field class="login-full-width">
+        <mat-label>Phone number</mat-label>
+        <input matInput type="text" name="phonenumber" formControlName="phonenumber">
+        <mat-error>
+          {{getErrorMessagePhone()}}
+        </mat-error>
+      </mat-form-field>
+        <mat-form-field class="login-full-width">
+          <mat-label>Rankig</mat-label>
+          <mat-select formControlName="ranking">
+            <mat-option *ngFor="let ranking of rankings$ | async" [value]="ranking.Value">
+              {{ranking.Label | ranking}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="login-full-width">
+          <mat-label>Zip Code</mat-label>
+          <input matInput type="text" name="zipCode" maxlength="5" formControlName="zipCode">
+          <mat-error>
+            {{getErrorMessageZipCode()}}
+          </mat-error>
+        </mat-form-field>
+        <button mat-button (click)='cancel()' class="cancel-button">Cancel</button>
+        <button mat-button type="submit" class="submit-button" [disabled]="!editUserForm.valid">Save edit</button>
+    </form>
+  </mat-card>
+</div>

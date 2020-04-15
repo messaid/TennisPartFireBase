@@ -4,14 +4,14 @@
   </div>
   <span class="fill-remaining-space"></span>
   <div>
-    <button mat-button mat-fab *ngIf="userStatus$ | async" [matMenuTriggerFor]="menu" class="button-logout">
+    <button mat-button mat-fab *ngIf="userDisplayName$ | async" [matMenuTriggerFor]="menu" class="button-logout">
     <div class="initial-name">{{userInitial$ | async}}</div>
     </button>
   </div>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button (click)="showProfil()" mat-menu-item>
     <mat-icon style="color: rgb(65, 76, 228);">edit</mat-icon>
     <span>Edit profil</span>
   </button>

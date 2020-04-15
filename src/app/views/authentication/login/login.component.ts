@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../../service/spinner.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
@@ -12,7 +13,10 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public authError$: Observable<string>;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, 
+    public spinnerService: SpinnerService,
+    private router: Router) { }
+
   public loginForm = new FormGroup({
     email: new FormControl('',  [Validators.required, Validators.email]),
     password: new FormControl('',  [Validators.required, Validators.minLength(4)]),
@@ -32,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
    // this.authService.errorMatcher$.subscribe(data => {this.authError = data; });
-    this.authError$ = this.authService.errorMatcher$.pipe();
+   this.authError$ = this.authService.eventAuthErrorLogin$.pipe();
   }
 
 }

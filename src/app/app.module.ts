@@ -16,6 +16,11 @@ import { LoginComponent } from './views/authentication/login/login.component';
 import { RegisterComponent } from './views/authentication/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationComponent } from './views/authentication/authentication.component';
+import { ProfilComponent } from './views/profil/profil.component';
+import { RankingPipe } from './pipes/ranking.pipe';
+import { SpinnerComponent } from './generic-components/spinner/spinner.component';
+import { SpinnerService } from './service/spinner.service';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,9 @@ import { AuthenticationComponent } from './views/authentication/authentication.c
     LoginComponent,
     RegisterComponent,
     AuthenticationComponent,
+    ProfilComponent,
+    RankingPipe,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +39,7 @@ import { AuthenticationComponent } from './views/authentication/authentication.c
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    MatProgressSpinnerModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
     StoreModule.forRoot(appReducers),
@@ -38,7 +47,8 @@ import { AuthenticationComponent } from './views/authentication/authentication.c
     BrowserAnimationsModule,
     MaterialFeaturesModule
   ],
-  providers: [],
+  entryComponents: [ProfilComponent],
+  providers: [SpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
