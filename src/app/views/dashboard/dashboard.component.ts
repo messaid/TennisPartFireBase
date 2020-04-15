@@ -1,6 +1,6 @@
 import { SpinnerService } from './../../service/spinner.service';
 import { ProfilComponent } from './../profil/profil.component';
-import { User } from './../../models/user';
+import { UserDTO } from './../../models/user';
 import { selectUser, selectUserDisplayName } from './../../store/selectors/user.selector';
 import { IUserState } from './../../store/state/user.state';
 import { Component, OnInit } from '@angular/core';
@@ -16,24 +16,23 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public userStatus$: Observable<User>;
+
+  public userDisplayName$: Observable<string>;
   private userInitial = new BehaviorSubject<string>('');
   public userInitial$ = this.userInitial.asObservable();
-  public userDisplayName$: Observable<string>;
   constructor(private authService: AuthService,
               public dialog: MatDialog,
               private spinnerService: SpinnerService,
               private storeUser: Store<{ user: IUserState }>) {
 
     this.userDisplayName$ = this.storeUser.pipe(select(selectUserDisplayName));
-    this.userStatus$ = this.storeUser.pipe(select(selectUser));
-    this.userDisplayName$.subscribe(data => {
-      if (!isNullOrUndefined(data)) {
+    this.storeUser.pipe(select(selectUser)).subscribe(data => {
+      if (!isNullOrUndefined(data.displayName)) {
         let initials = '';
-        if (data.split(' ').length > 1) {
-          initials = data.split(' ')[0].charAt(0) + data.split(' ')[1].charAt(0);
+        if (data.displayName.split(' ').length > 1) {
+          initials = data.displayName.split(' ')[0].charAt(0) + data.displayName.split(' ')[1].charAt(0);
         } else {
-          initials = data.split(' ')[0].charAt(0);
+          initials = data.displayName.split(' ')[0].charAt(0);
         }
         this.userInitial.next(initials.toUpperCase());
       }

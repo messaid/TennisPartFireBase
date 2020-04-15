@@ -5,8 +5,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EnumDisplayedObject } from 'src/app/enums/displayed-object-enum';
-import { selectRankings } from 'src/app/store/selectors/user.selector';
+import { selectRankings, selectUser } from 'src/app/store/selectors/user.selector';
 import { ErrorMessages } from 'src/app/constants/error-messages';
+import { UserDTO } from 'src/app/models/user';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-profil',
@@ -15,30 +17,31 @@ import { ErrorMessages } from 'src/app/constants/error-messages';
 })
 
 export class ProfilComponent implements OnInit {
-
+  public userStatus$: Observable<UserDTO>;
   public rankings$: Observable<Array<EnumDisplayedObject>>;
   private lastValidNumber = '';
   private lastValidZipCode = '';
+  public disabled = true;
+  public editUserForm = new FormGroup({
+    email: new FormControl({ value: '', disabled: this.disabled }, {validators: [Validators.required, Validators.email]}),
+    zipCode: new FormControl({ value: ''}, {validators: [Validators.minLength(5), Validators.maxLength(5)], updateOn: 'change' }),
+    ranking: new FormControl({ value: 1}, {updateOn: 'blur' }),
+    name: new FormControl({ value: ''}, Validators.required),
+    phonenumber: new FormControl({ value: ''}, { validators: [Validators.required], updateOn: 'change' }),
+  });
   constructor(private dialogRef: MatDialogRef<ProfilComponent>,
               private storeUser: Store<{ user: IUserState }>) {
-    this.rankings$ = this.storeUser.pipe(select(selectRankings));
   }
-
-  public editUserForm = new FormGroup({
-    email: new FormControl({ value: '', disabled: true }, {validators: [Validators.required, Validators.email]}),
-    zipCode: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
-    ranking: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
-    name: new FormControl('', Validators.required),
-    phonenumber: new FormControl('', { validators: [Validators.required], updateOn: 'change' }),
-  });
 
   onChangesValuesPhone(): void {
     this.editUserForm.get('phonenumber').valueChanges.subscribe(
       val => {
-        if (isNaN(val) || val < 0 || val.includes('.')) {
-          this.editUserForm.controls['phonenumber'].setValue(this.lastValidNumber);
-        } else {
-          this.lastValidNumber = val;
+        if (!isNullOrUndefined(val)){
+          if (isNaN(val) || val < 0 || val.includes('.')) {
+            this.editUserForm.controls['phonenumber'].setValue(this.lastValidNumber);
+          } else {
+            this.lastValidNumber = val;
+          }
         }
       }
     );
@@ -47,10 +50,12 @@ export class ProfilComponent implements OnInit {
   onChangesValuesZipCode(): void {
     this.editUserForm.get('zipCode').valueChanges.subscribe(
       val => {
-        if (isNaN(val) || val < 0 || val.includes('.')) {
-          this.editUserForm.controls['zipCode'].setValue(this.lastValidZipCode);
-        } else {
-          this.lastValidZipCode = val;
+        if (!isNullOrUndefined(val)){
+          if (isNaN(val) || val < 0 || val.includes('.')) {
+            this.editUserForm.controls['zipCode'].setValue(this.lastValidZipCode);
+          } else {
+            this.lastValidZipCode = val;
+          }
         }
       }
     );
@@ -70,8 +75,20 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.storeUser.pipe(select(selectUser)).subscribe(data =>{
+      this.editUserForm.controls['name'].setValue(data.displayName);
+      this.editUserForm.controls['email'].setValue(data.email);
+      this.editUserForm.controls['phonenumber'].setValue(data.phoneNumber);
+      this.editUserForm.controls['ranking'].setValue(data.ranking);
+      this.editUserForm.controls['zipCode'].setValue(data.postalCode);
+    });
+    this.rankings$ = this.storeUser.pipe(select(selectRankings));
     this.onChangesValuesPhone();
     this.onChangesValuesZipCode();
+  }
+
+  cancel(){
+    this.dialogRef.close();
   }
 
   saveChanges(formData: FormData) {

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { ErrorMessages } from 'src/app/constants/error-messages';
 import { ThrowStmt } from '@angular/compiler';
 import { Observable } from 'rxjs';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-register',
@@ -56,10 +57,12 @@ export class RegisterComponent implements OnInit {
   onChangesValuesPhone(): void {
     this.registerForm.get('phonenumber').valueChanges.subscribe(
       val => {
-        if (isNaN(val) || val < 0 || val.includes('.')) {
-          this.registerForm.controls['phonenumber'].setValue(this.lastValiNumber);
-        } else{
-          this.lastValiNumber = val;
+        if(!isNullOrUndefined(val)){
+          if (isNaN(val) || val < 0 || val.includes('.')) {
+            this.registerForm.controls['phonenumber'].setValue(this.lastValiNumber);
+          } else{
+            this.lastValiNumber = val;
+          }
         }
       }
     );

@@ -4,7 +4,7 @@
   </div>
   <span class="fill-remaining-space"></span>
   <div>
-    <button mat-button mat-fab *ngIf="userStatus$ | async" [matMenuTriggerFor]="menu" class="button-logout">
+    <button mat-button mat-fab *ngIf="userDisplayName$ | async" [matMenuTriggerFor]="menu" class="button-logout">
     <div class="initial-name">{{userInitial$ | async}}</div>
     </button>
   </div>
