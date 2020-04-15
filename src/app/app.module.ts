@@ -49,7 +49,7 @@ import { CustomSnackbarComponent } from './generic-components/custom-snackbar/cu
     BrowserAnimationsModule,
     MaterialFeaturesModule
   ],
-  entryComponents: [ProfilComponent],
+  entryComponents: [ProfilComponent, CustomSnackbarComponent],
   providers: [SpinnerService],
   bootstrap: [AppComponent]
 })

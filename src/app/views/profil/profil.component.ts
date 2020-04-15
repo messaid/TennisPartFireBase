@@ -11,6 +11,7 @@ import { UserDTO } from 'src/app/models/user';
 import { isNullOrUndefined } from 'util';
 import { AuthService } from 'src/app/service/auth.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { SnackbarService } from 'src/app/service/snackbar.service';
 
 @Component({
   selector: 'app-profil',
@@ -34,6 +35,7 @@ export class ProfilComponent implements OnInit {
   });
   constructor(private dialogRef: MatDialogRef<ProfilComponent>,
               private authService: AuthService,
+              private snackbar: SnackbarService,
               private spinnerService: SpinnerService,
               private storeUser: Store<{ user: IUserState }>) {
   }
@@ -103,12 +105,11 @@ export class ProfilComponent implements OnInit {
     this.spinnerService.start();
     this.authService.updateUser(this.userdoc, formData['name'], formData['phonenumber'], formData['ranking'], formData['zipCode'])
     .then(user => {
-      // TO DO SNACK 
-      this.dialogRef.close();      
+      this.dialogRef.close();
       this.spinnerService.stop();
+      this.snackbar.snackBarSuccess('Profil updated with success...');
     }).catch(err => {
-      // TO DO SNACK 
-      console.log(err);
+      this.snackbar.snackBarError('Error when update the profil...');
       this.spinnerService.stop();
     });
   }
