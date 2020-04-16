@@ -42,7 +42,7 @@ export class AuthService {
           ranking: null,
           postalCode: null
         };
-        this.firestore.collection('users').add(currUser)
+        this.firestore.collection(Collections.USERS_COLLECTION()).add(currUser)
           .then(user => {
             user.get().then(x => {
               this.currentUser = x.data();
@@ -67,7 +67,7 @@ export class AuthService {
     this.spinnerService.start();
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
-        this.firestore.collection('users').ref.where('email', '==', user.user.email).onSnapshot(snap => {
+        this.firestore.collection(Collections.USERS_COLLECTION()).ref.where('email', '==', user.user.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
             this.storeUser.dispatch(UserActions.setUser({
@@ -106,7 +106,7 @@ export class AuthService {
   userChanges() {
     this.afAuth.auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
-        this.firestore.collection('users').ref.where('email', '==', currentUser.email).onSnapshot(snap => {
+        this.firestore.collection(Collections.USERS_COLLECTION()).ref.where('email', '==', currentUser.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
             this.ngZone.run(() => this.router.navigate(['/dashboard']));
