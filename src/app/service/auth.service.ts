@@ -89,14 +89,17 @@ export class AuthService {
   }
 
   logOut() {
+    this.spinnerService.updateMessage('Disconnecting...');
+    this.spinnerService.start();
     this.afAuth.auth.signOut()
       .then(() => {
         this.currentUser = null;
         this.storeUser.dispatch(UserActions.resetUser());
         this.ngZone.run(() => this.router.navigate(['/authentication']));
-
+        this.spinnerService.stop();
       }).catch((err) => {
         console.log(err);
+        this.spinnerService.stop();
       });
   }
 
