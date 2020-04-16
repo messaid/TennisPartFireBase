@@ -4,7 +4,7 @@
 </div>
 <div>
   <mat-card class="mat-card-class">
-    <form (ngSubmit)="saveChanges(editUserForm.value)" class="form-class" [formGroup]="editUserForm">
+    <form class="form-class" [formGroup]="editUserForm">
       <mat-form-field class="login-full-width">
         <mat-label>Name</mat-label>
         <input matInput type="text" name="name" formControlName="name">
@@ -35,7 +35,7 @@
           </mat-error>
         </mat-form-field>
         <button mat-button (click)='cancel()' class="cancel-button">Cancel</button>
-        <button mat-button type="submit" class="submit-button" [disabled]="!editUserForm.valid">Save edit</button>
+        <button mat-button (click)='saveChanges(editUserForm.value)' class="submit-button" [disabled]="!editUserForm.valid">Save edit</button>
     </form>
   </mat-card>
 </div>

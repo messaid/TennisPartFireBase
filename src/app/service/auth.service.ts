@@ -46,6 +46,7 @@ export class AuthService {
           .then(user => {
             user.get().then(x => {
               this.currentUser = x.data();
+              this.eventAuthErrorRegister.next('');
               this.storeUser.dispatch(UserActions.setUser({ user: {doc: x.id, user: currUser} }));
               this.router.navigate(['/dashboard']);
             });
@@ -76,6 +77,7 @@ export class AuthService {
                     doc: userRef.id
               }
             }));
+            this.eventAuthErrorLogin.next('');
             this.router.navigate(['/dashboard']);
             this.spinnerService.stop();
           });
@@ -90,7 +92,7 @@ export class AuthService {
     this.afAuth.auth.signOut()
       .then(() => {
         this.currentUser = null;
-        this.storeUser.dispatch(UserActions.resetUser);
+        this.storeUser.dispatch(UserActions.resetUser());
         this.ngZone.run(() => this.router.navigate(['/authentication']));
 
       }).catch((err) => {
