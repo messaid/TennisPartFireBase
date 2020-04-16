@@ -1,2 +1,31 @@
+<mat-toolbar class="mat-toolbar-class">
+    <div class="group-item"  *ngIf="userDisplayName$ | async">
+      <span class="center-logo logo-temp">T</span>
+      <div class="center-pipe"></div>
+      <span class="center-logo">Welcome {{userDisplayName$ | async}} in your TennisPart'</span>
+    </div>
+    <div class="group-item"  *ngIf="!(userDisplayName$ | async)">
+      <span class="center-logo logo-temp">T</span>
+      <div class="center-pipe"></div>
+      <span class="center-logo">TennisPart</span>
+    </div>
+    <span class="fill-remaining-space"></span>
+    <div>
+      <button mat-button mat-fab *ngIf="userDisplayName$ | async" [matMenuTriggerFor]="menu" class="button-logout">
+      <div class="initial-name">{{userInitial$ | async}}</div>
+      </button>
+    </div>
+  </mat-toolbar>
 <app-spinner></app-spinner>
 <router-outlet></router-outlet>
+
+<mat-menu #menu="matMenu">
+    <button (click)="showProfil()" mat-menu-item>
+      <mat-icon style="color: rgb(65, 76, 228);">edit</mat-icon>
+      <span>Edit profil</span>
+    </button>
+    <button (click)="logout()" mat-menu-item>
+      <mat-icon style="color: rgb(199, 58, 58);">eject</mat-icon>
+      <span>Log out</span>
+    </button>
+  </mat-menu>
