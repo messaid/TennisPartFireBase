@@ -22,6 +22,10 @@ import { SpinnerComponent } from './generic-components/spinner/spinner.component
 import { SpinnerService } from './service/spinner.service';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { CustomSnackbarComponent } from './generic-components/custom-snackbar/custom-snackbar.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MarketListComponent } from './views/market-list/market-list.component';
+import { SearchPlayerListComponent } from './views/search-player-list/search-player-list.component';
+import { AwardsComponent } from './views/awards/awards.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +38,13 @@ import { CustomSnackbarComponent } from './generic-components/custom-snackbar/cu
     RankingPipe,
     SpinnerComponent,
     CustomSnackbarComponent,
+    MarketListComponent,
+    SearchPlayerListComponent,
+    AwardsComponent,
   ],
   imports: [
     BrowserModule,
+    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

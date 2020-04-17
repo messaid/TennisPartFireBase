@@ -4,7 +4,7 @@ import {
     MatButtonModule, MatTableModule, MatSortModule, MatInputModule, MAT_DIALOG_DATA, MatToolbarModule,
     MatIconModule, MatTooltipModule, MatListModule, MatSidenavModule,
     MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatMenuModule, MatTabsModule,
-    MatTreeModule, MatCheckboxModule, MatPaginatorModule, MatSelectModule, MatCardModule
+    MatTreeModule, MatCheckboxModule, MatPaginatorModule, MatSelectModule, MatCardModule, MatGridListModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
@@ -33,6 +33,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatSidenavModule,
         BrowserAnimationsModule,
         MatSlideToggleModule,
+        MatGridListModule,
         MatSnackBarModule,
         MatExpansionModule,
         MatCardModule,
@@ -52,6 +53,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatFormFieldModule,
         MatInputModule,
         MatMenuModule,
+        MatGridListModule,
         MatIconModule,
         MatTooltipModule,
         MatListModule,
