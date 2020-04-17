@@ -1,6 +1,6 @@
 <mat-toolbar class="mat-toolbar-class">
     <div class="group-item"  *ngIf="userDisplayName$ | async">
-      <span class="center-logo logo-temp">T</span>
+      <span class="center-logo logo-temp" [routerLink]="['/dashboard']">T</span>
       <div class="center-pipe"></div>
       <span class="center-logo">Welcome {{userDisplayName$ | async}} in your TennisPart'</span>
     </div>

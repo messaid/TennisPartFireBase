@@ -109,7 +109,7 @@ export class AuthService {
         this.firestore.collection(Collections.USERS_COLLECTION()).ref.where('email', '==', currentUser.email).onSnapshot(snap => {
           snap.forEach(userRef => {
             this.currentUser = userRef.data();
-            this.ngZone.run(() => this.router.navigate(['/dashboard']));
+            this.ngZone.run(() => this.router.navigate([this.router.url]));
             this.storeUser.dispatch(UserActions.setUser({
               user: {user: { uid: this.currentUser.uid, displayName: this.currentUser.displayName, 
                             ranking: this.currentUser.ranking, email: this.currentUser.email, 
