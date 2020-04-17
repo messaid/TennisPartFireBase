@@ -1,3 +1,4 @@
+import { MarketService } from './../../service/market.service';
 import { selectProducts, selectUser } from './../../store/selectors/user.selector';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
@@ -17,6 +18,7 @@ import { ErrorMessages } from 'src/app/constants/error-messages';
 export class MarketAddComponent implements OnInit {
   public categories$: Observable<Array<EnumDisplayedObject>>;
   private lastValidPrice = '';
+  private uid = '';
   public addProductForm = new FormGroup({
      name: new FormControl({ value: '', disabled: true }, {validators: [Validators.required]}),
      title: new FormControl({ value: '', disabled: false }, {validators: [Validators.required]}),
@@ -25,12 +27,14 @@ export class MarketAddComponent implements OnInit {
      description: new FormControl({ value: '', disabled: false }, { validators: [Validators.required] }),
   });
 
-  constructor(private dialogRef: MatDialogRef<MarketAddComponent>, private storeUser: Store<{ user: IUserState }>) { }
+  constructor(private dialogRef: MatDialogRef<MarketAddComponent>, private marketService: MarketService,
+              private storeUser: Store<{ user: IUserState }>) { }
 
   ngOnInit() {
     this.onChangesValuesPrice();
     this.storeUser.pipe(select(selectUser)).subscribe(data => {
       this.addProductForm.controls['name'].setValue(data.user.displayName);
+      this.uid = data.user.uid;
     });
     this.categories$ = this.storeUser.pipe(select(selectProducts));
   }
@@ -40,8 +44,10 @@ export class MarketAddComponent implements OnInit {
   }
 
   publish(formData: FormData) {
-    alert('je publie');
+    this.marketService.publishAd(this.uid, formData['name'],
+    formData['title'], formData['category'], formData['price'], formData['description'])
   }
+
 
   getErrorMessage(fieldName: string){
     return ErrorMessages.PRODUCT_MISSING_FIELD(fieldName);

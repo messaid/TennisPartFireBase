@@ -3,7 +3,7 @@ export class Collections {
         return `users`;
     }
 
-    public static PRODUCT(): string {
-        return `product`;
+    public static PRODUCTS_COLLECTION(): string {
+        return `products`;
     }
 }

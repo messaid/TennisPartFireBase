@@ -20,7 +20,7 @@ import { ProfilComponent } from './views/profil/profil.component';
 import { RankingPipe } from './pipes/ranking.pipe';
 import { SpinnerComponent } from './generic-components/spinner/spinner.component';
 import { SpinnerService } from './service/spinner.service';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatDialogRef } from '@angular/material';
 import { CustomSnackbarComponent } from './generic-components/custom-snackbar/custom-snackbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MarketListComponent } from './views/market-list/market-list.component';
@@ -60,7 +60,10 @@ import { MarketAddComponent } from './views/market-add/market-add.component';
     MaterialFeaturesModule
   ],
   entryComponents: [ProfilComponent, MarketAddComponent, CustomSnackbarComponent],
-  providers: [SpinnerService],
+  providers: [SpinnerService, {
+    provide: MatDialogRef,
+    useValue: {}
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
