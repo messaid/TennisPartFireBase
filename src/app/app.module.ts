@@ -26,6 +26,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MarketListComponent } from './views/market-list/market-list.component';
 import { SearchPlayerListComponent } from './views/search-player-list/search-player-list.component';
 import { AwardsComponent } from './views/awards/awards.component';
+import { MarketAddComponent } from './views/market-add/market-add.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AwardsComponent } from './views/awards/awards.component';
     MarketListComponent,
     SearchPlayerListComponent,
     AwardsComponent,
+    MarketAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,7 @@ import { AwardsComponent } from './views/awards/awards.component';
     BrowserAnimationsModule,
     MaterialFeaturesModule
   ],
-  entryComponents: [ProfilComponent, CustomSnackbarComponent],
+  entryComponents: [ProfilComponent, MarketAddComponent, CustomSnackbarComponent],
   providers: [SpinnerService],
   bootstrap: [AppComponent]
 })
