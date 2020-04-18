@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { EnumDisplayedObject } from 'src/app/enums/displayed-object-enum';
 import { isNullOrUndefined } from 'util';
 import { ErrorMessages } from 'src/app/constants/error-messages';
+import { SpinnerService } from 'src/app/service/spinner.service';
+import { SnackbarService } from 'src/app/service/snackbar.service';
 
 @Component({
   selector: 'app-market-add',
@@ -22,12 +24,14 @@ export class MarketAddComponent implements OnInit {
   public addProductForm = new FormGroup({
      name: new FormControl({ value: '', disabled: true }, {validators: [Validators.required]}),
      title: new FormControl({ value: '', disabled: false }, {validators: [Validators.required]}),
-     category: new FormControl({ value: 1, disabled: false },{validators: [Validators.required] }),
+     category: new FormControl({ value: '', disabled: false },{validators: [Validators.required] }),
      price: new FormControl({ value: '', disabled: false }, Validators.required),
      description: new FormControl({ value: '', disabled: false }, { validators: [Validators.required] }),
   });
 
-  constructor(private dialogRef: MatDialogRef<MarketAddComponent>, private marketService: MarketService,
+  constructor(private dialogRef: MatDialogRef<MarketAddComponent>,
+              private snackbar: SnackbarService,
+              private spinnerService: SpinnerService, private marketService: MarketService,
               private storeUser: Store<{ user: IUserState }>) { }
 
   ngOnInit() {
@@ -44,8 +48,20 @@ export class MarketAddComponent implements OnInit {
   }
 
   publish(formData: FormData) {
-    this.marketService.publishAd(this.uid, formData['name'],
+    this.spinnerService.updateMessage('Publishing...');
+    this.spinnerService.start();
+    this.marketService.publishAd(this.uid, this.addProductForm.get('name').value,
     formData['title'], formData['category'], formData['price'], formData['description'])
+    .then(product => {
+      product.get().then(x => {
+      this.dialogRef.close();
+      this.spinnerService.stop();
+      this.snackbar.snackBarSuccess('The ad has been successfully...');
+      });
+    }).catch(err => {
+      this.snackbar.snackBarError('Error when publishing your ad...');
+      this.spinnerService.stop();
+    });
   }
 
 
