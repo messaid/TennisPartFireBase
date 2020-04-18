@@ -34,7 +34,7 @@
             {{getErrorMessageZipCode()}}
           </mat-error>
         </mat-form-field>
-        <button mat-button (click)='cancel()' class="cancel-button">Cancel</button>
+        <button mat-button (click)='closePopup()' class="cancel-button">Cancel</button>
         <button mat-button (click)='saveChanges(editUserForm.value)' class="submit-button" [disabled]="!editUserForm.valid">Save edit</button>
     </form>
   </mat-card>

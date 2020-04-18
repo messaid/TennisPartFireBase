@@ -18,4 +18,8 @@ export class ErrorMessages {
     public static PASSWORD_INVALID(): string {
         return `there is a missmatch between passwords`;
     }
+
+    public static PRODUCT_MISSING_FIELD(fieldName: string): string {
+        return `Please write the ` + fieldName + ' of your ad';
+    }
 }

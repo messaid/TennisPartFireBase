@@ -18,3 +18,8 @@ export const selectRankings = createSelector(
   selectSession,
   (state: IUserState) => state.rankings
 );
+
+export const selectProducts = createSelector(
+  selectSession,
+  (state: IUserState) => state.products
+);

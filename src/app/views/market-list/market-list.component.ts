@@ -1,4 +1,6 @@
+import { MarketAddComponent } from './../market-add/market-add.component';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-market-list',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MarketListComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
+  addProduct() {
+    const dialogRef = this.dialog.open(MarketAddComponent, {
+      width: '500px',
+      disableClose: true,
+    });
+  }
 }

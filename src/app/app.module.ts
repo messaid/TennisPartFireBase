@@ -20,12 +20,13 @@ import { ProfilComponent } from './views/profil/profil.component';
 import { RankingPipe } from './pipes/ranking.pipe';
 import { SpinnerComponent } from './generic-components/spinner/spinner.component';
 import { SpinnerService } from './service/spinner.service';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatDialogRef } from '@angular/material';
 import { CustomSnackbarComponent } from './generic-components/custom-snackbar/custom-snackbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MarketListComponent } from './views/market-list/market-list.component';
 import { SearchPlayerListComponent } from './views/search-player-list/search-player-list.component';
 import { AwardsComponent } from './views/awards/awards.component';
+import { MarketAddComponent } from './views/market-add/market-add.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AwardsComponent } from './views/awards/awards.component';
     MarketListComponent,
     SearchPlayerListComponent,
     AwardsComponent,
+    MarketAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,8 +59,11 @@ import { AwardsComponent } from './views/awards/awards.component';
     BrowserAnimationsModule,
     MaterialFeaturesModule
   ],
-  entryComponents: [ProfilComponent, CustomSnackbarComponent],
-  providers: [SpinnerService],
+  entryComponents: [ProfilComponent, MarketAddComponent, CustomSnackbarComponent],
+  providers: [SpinnerService, {
+    provide: MatDialogRef,
+    useValue: {}
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

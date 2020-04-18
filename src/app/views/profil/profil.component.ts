@@ -28,10 +28,11 @@ export class ProfilComponent implements OnInit {
   public disabled = true;
   public editUserForm = new FormGroup({
     email: new FormControl({ value: '', disabled: this.disabled }, {validators: [Validators.required, Validators.email]}),
-    zipCode: new FormControl({ value: ''}, {validators: [Validators.minLength(5), Validators.maxLength(5)], updateOn: 'change' }),
-    ranking: new FormControl({ value: 1}, {updateOn: 'blur' }),
-    name: new FormControl({ value: ''}, Validators.required),
-    phonenumber: new FormControl({ value: ''}, { validators: [Validators.required], updateOn: 'change' }),
+    zipCode: new FormControl({ value: '' , disabled: !this.disabled}, 
+    {validators: [Validators.minLength(5), Validators.maxLength(5)], updateOn: 'change' }),
+    ranking: new FormControl({ value: 1 , disabled: !this.disabled}, {updateOn: 'blur' }),
+    name: new FormControl({ value: '' , disabled: !this.disabled}, Validators.required),
+    phonenumber: new FormControl({ value: '' , disabled: !this.disabled}, { validators: [Validators.required], updateOn: 'change' }),
   });
   constructor(private dialogRef: MatDialogRef<ProfilComponent>,
               private authService: AuthService,
@@ -54,7 +55,6 @@ export class ProfilComponent implements OnInit {
     );
   }
 
-  
   onChangesValuesZipCode(): void {
     this.editUserForm.get('zipCode').valueChanges.subscribe(
       val => {
@@ -94,10 +94,6 @@ export class ProfilComponent implements OnInit {
     this.rankings$ = this.storeUser.pipe(select(selectRankings));
     this.onChangesValuesPhone();
     this.onChangesValuesZipCode();
-  }
-
-  cancel(){
-    this.dialogRef.close();
   }
 
   saveChanges(formData: FormData) {

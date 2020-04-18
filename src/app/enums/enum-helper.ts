@@ -1,5 +1,6 @@
 import { RankingEnum } from './ranking-enum';
 import { EnumDisplayedObject } from './displayed-object-enum';
+import { ProductEnum } from './product-enum';
 
 // tslint:disable-next-line: no-namespace
 export namespace EnumHelper {
@@ -13,6 +14,12 @@ export namespace EnumHelper {
 
     export const initRankingValues = () => {
         return Object.entries(RankingEnum)
+                    .filter(e => !isNaN(e[0] as any))
+                    .map(e => (createEnumObject(Number(e[0]), e[1])));
+    };
+
+    export const initProductValues = () => {
+        return Object.entries(ProductEnum)
                     .filter(e => !isNaN(e[0] as any))
                     .map(e => (createEnumObject(Number(e[0]), e[1])));
     };
