@@ -2,10 +2,15 @@
 table {
     width: 80%;
     margin: 0 auto;
+    cursor: pointer;
   }
   
   .mat-form-field {
     font-size: 14px;
     width: 80%;
     margin-left: 10%;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
   }

@@ -29,6 +29,8 @@ import { AwardsComponent } from './views/awards/awards.component';
 import { MarketAddComponent } from './views/market-add/market-add.component';
 import { MarketTableComponent } from './views/market-table/market-table.component';
 import { MarketTilesComponent } from './views/market-tiles/market-tiles.component';
+import { CurrencyPipe } from './pipes/currency.pipe';
+import { ProductCategoryPipe } from './pipes/product-category.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { MarketTilesComponent } from './views/market-tiles/market-tiles.componen
     MarketAddComponent,
     MarketTableComponent,
     MarketTilesComponent,
+    CurrencyPipe,
+    ProductCategoryPipe,
   ],
   imports: [
     BrowserModule,

@@ -1,19 +1,15 @@
-import { ProductEnum } from './../../enums/product-enum';
+import { MarketService } from './../../service/market.service';
 import { Product } from './../../models/product';
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort } from '@angular/material';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { IMarketState } from 'src/app/store/state/market.state';
+import { selectProducts } from 'src/app/store/selectors/market.selector';
 
 const ELEMENT_DATA: Product[] = [
-  {title: 'raqut', category: ProductEnum.Bag, price: '20', description : '', displayName: 'Moha', uid : '' },
-  {title: 'shoes', category: ProductEnum.Shoes, price: '20', description : '', displayName: 'Moha', uid : '' },
+  // {title: 'raqut', category: ProductEnum.Bag, price: '20', description : '', displayName: 'Moha', uid : '' },
+  // {title: 'shoes', category: ProductEnum.Shoes, price: '20', description : '', displayName: 'Moha', uid : '' },
 ];
 
 @Component({
@@ -22,21 +18,24 @@ const ELEMENT_DATA: Product[] = [
   styleUrls: ['./market-table.component.scss']
 })
 export class MarketTableComponent implements OnInit {
-
-  // displayedColumns: string[] = ['Name', 'category', 'Title', 'Price', 'Status', 'Zip Code'];
-  displayedColumns: string[] = ['name', 'category', 'title', 'price'];
-  // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  public displayedColumns: string[] = ['name', 'category', 'title', 'price'];
+  public dataSource = new MatTableDataSource<Product>();
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private marketService: MarketService,
+              private storeMarket: Store<{ market: IMarketState }>) {
+    this.storeMarket.pipe(select(selectProducts)).subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.sort = this.sort;
+    });
   }
 
-
+  ngOnInit() {
+    this.marketService.getAllProducts();
+  }
 }
