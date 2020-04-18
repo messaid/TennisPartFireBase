@@ -56,7 +56,7 @@ export class MarketAddComponent implements OnInit {
       product.get().then(x => {
       this.dialogRef.close();
       this.spinnerService.stop();
-      this.snackbar.snackBarSuccess('The ad has been successfully...');
+      this.snackbar.snackBarSuccess('The ad has been added successfully...');
       });
     }).catch(err => {
       this.snackbar.snackBarError('Error when publishing your ad...');
