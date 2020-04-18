@@ -27,6 +27,8 @@ import { MarketListComponent } from './views/market-list/market-list.component';
 import { SearchPlayerListComponent } from './views/search-player-list/search-player-list.component';
 import { AwardsComponent } from './views/awards/awards.component';
 import { MarketAddComponent } from './views/market-add/market-add.component';
+import { MarketTableComponent } from './views/market-table/market-table.component';
+import { MarketTilesComponent } from './views/market-tiles/market-tiles.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { MarketAddComponent } from './views/market-add/market-add.component';
     SearchPlayerListComponent,
     AwardsComponent,
     MarketAddComponent,
+    MarketTableComponent,
+    MarketTilesComponent,
   ],
   imports: [
     BrowserModule,
