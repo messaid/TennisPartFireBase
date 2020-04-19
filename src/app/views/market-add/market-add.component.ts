@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { IUserState } from 'src/app/store/state/user.state';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, observable } from 'rxjs';
 import { EnumDisplayedObject } from 'src/app/enums/displayed-object-enum';
 import { isNullOrUndefined } from 'util';
 import { ErrorMessages } from 'src/app/constants/error-messages';
@@ -21,29 +21,38 @@ export class MarketAddComponent implements OnInit {
   public categories$: Observable<Array<EnumDisplayedObject>>;
   private lastValidPrice = '';
   private uid = '';
-  public addProductForm = new FormGroup({
-     name: new FormControl({ value: '', disabled: true }, {validators: [Validators.required]}),
-     title: new FormControl({ value: '', disabled: false }, {validators: [Validators.required]}),
-     category: new FormControl({ value: '', disabled: false },{validators: [Validators.required] }),
-     price: new FormControl({ value: '', disabled: false }, Validators.required),
-     description: new FormControl({ value: '', disabled: false }, { validators: [Validators.required] }),
-  });
+  public addProductForm;
+  private readOnly = new BehaviorSubject<boolean>(false);
+  public readOnly$ = this.readOnly.asObservable();
 
   constructor(private dialogRef: MatDialogRef<MarketAddComponent>,
               private snackbar: SnackbarService,
-              @Inject(MAT_DIALOG_DATA) data,
+              @Inject(MAT_DIALOG_DATA) dataDialog,
               private spinnerService: SpinnerService, private marketService: MarketService,
               private storeUser: Store<{ user: IUserState }>) {
-                console.log(data.message);
-               }
+                this.addProductForm = new FormGroup({
+                  name: new FormControl({ value: dataDialog.product.displayName, disabled: true }, {validators: [Validators.required]}),
+                  title: new FormControl({ value: dataDialog.product.title, 
+                  disabled: dataDialog.disabled }, {validators: [Validators.required]}),
+                  category: new FormControl({ value: dataDialog.product.category, 
+                  disabled: dataDialog.disabled }, {validators: [Validators.required] }),
+                  price: new FormControl({ value: dataDialog.product.price, disabled: dataDialog.disabled }, Validators.required),
+                  description: new FormControl({ value: dataDialog.product.description, 
+                  disabled: dataDialog.disabled }, { validators: [Validators.required] }),
+               });
+                this.readOnly.next(dataDialog.disabled);
+                this.storeUser.pipe(select(selectUser)).subscribe(data => {
+                  if (!this.readOnly) {
+                    this.addProductForm.controls['name'].setValue(data.user.displayName);
+                    this.uid = data.user.uid;
+                  }
+              });
+                this.categories$ = this.storeUser.pipe(select(selectProducts));
+
+              }
 
   ngOnInit() {
     this.onChangesValuesPrice();
-    this.storeUser.pipe(select(selectUser)).subscribe(data => {
-      this.addProductForm.controls['name'].setValue(data.user.displayName);
-      this.uid = data.user.uid;
-    });
-    this.categories$ = this.storeUser.pipe(select(selectProducts));
   }
 
   closePopup() {

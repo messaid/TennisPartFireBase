@@ -1,11 +1,12 @@
 import { MarketService } from './../../service/market.service';
 import { Product } from './../../models/product';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IMarketState } from 'src/app/store/state/market.state';
 import { selectProducts } from 'src/app/store/selectors/market.selector';
+import { MarketAddComponent } from '../market-add/market-add.component';
 
 const ELEMENT_DATA: Product[] = [
   // {title: 'raqut', category: ProductEnum.Bag, price: '20', description : '', displayName: 'Moha', uid : '' },
@@ -28,6 +29,7 @@ export class MarketTableComponent implements OnInit {
   }
 
   constructor(private marketService: MarketService,
+              public dialog: MatDialog,
               private storeMarket: Store<{ market: IMarketState }>) {
     this.storeMarket.pipe(select(selectProducts)).subscribe(data => {
       this.dataSource.data = data;
@@ -35,8 +37,16 @@ export class MarketTableComponent implements OnInit {
     });
   }
 
-  showProduct(){
-    alert('clické')
+  showProduct(element: Product) {
+    const dialogRef = this.dialog.open(MarketAddComponent, {
+      width: '500px',
+      disableClose: true,
+      data: {
+        disabled: true,
+        product : { displayName : element.displayName, category: element.category , 
+          title: element.title, price: element.price, description: element.description}as Product,
+      },
+    });
   }
 
   ngOnInit() {

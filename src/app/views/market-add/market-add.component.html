@@ -36,8 +36,9 @@
             {{getErrorMessage('description')}}
           </mat-error>
       </mat-form-field>
-      <button mat-button (click)='closePopup()' class="cancel-button">Cancel</button>
-      <button mat-button (click)='publish(addProductForm.value)' class="submit-button"
+      <button mat-button *ngIf='readOnly$ | async' (click)='closePopup()' class="submit-button">Ok</button>
+      <button mat-button *ngIf='!readOnly$ | async' (click)='closePopup()' class="cancel-button">Cancel</button>
+      <button mat-button *ngIf='!readOnly$ | async' (click)='publish(addProductForm.value)' class="submit-button"
         [disabled]="!addProductForm.valid">Publish</button>
     </form>
   </mat-card>

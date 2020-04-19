@@ -1,3 +1,4 @@
+import { Product } from './../../models/product';
 import { MarketAddComponent } from './../market-add/market-add.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
@@ -19,7 +20,8 @@ export class MarketListComponent implements OnInit {
       width: '500px',
       disableClose: true,
       data: {
-        message: 'api',
+        disabled: false,
+        product : new Product(),
       },
     });
   }
