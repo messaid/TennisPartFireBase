@@ -1,4 +1,4 @@
-<div class="list-class">
+<div class="action-class">
     <div style="text-align: center;">
         <button (click)="addProduct()" style="margin:0 auto;" mat-button mat-fab color="warn">
             <mat-icon>add</mat-icon>
@@ -17,7 +17,9 @@
             </mat-radio-button>
         </mat-radio-group>
     </div>
+    
+</div>
+<div class="display-class">
     <app-market-table *ngIf='favoriteDisplay == 1'></app-market-table>
     <app-market-tiles *ngIf='favoriteDisplay == 2'></app-market-tiles>
-
 </div>
