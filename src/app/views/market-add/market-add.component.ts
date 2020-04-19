@@ -31,18 +31,15 @@ export class MarketAddComponent implements OnInit {
               private spinnerService: SpinnerService, private marketService: MarketService,
               private storeUser: Store<{ user: IUserState }>) {
                 this.addProductForm = new FormGroup({
-                  name: new FormControl({ value: dataDialog.product.displayName, disabled: true }, {validators: [Validators.required]}),
-                  title: new FormControl({ value: dataDialog.product.title, 
-                  disabled: dataDialog.disabled }, {validators: [Validators.required]}),
-                  category: new FormControl({ value: dataDialog.product.category, 
-                  disabled: dataDialog.disabled }, {validators: [Validators.required] }),
-                  price: new FormControl({ value: dataDialog.product.price, disabled: dataDialog.disabled }, Validators.required),
-                  description: new FormControl({ value: dataDialog.product.description, 
-                  disabled: dataDialog.disabled }, { validators: [Validators.required] }),
+                  name: new FormControl(dataDialog.product.displayName, {validators: [Validators.required]}), 
+                  title: new FormControl(dataDialog.product.title, {validators: [Validators.required]}),
+                  category: new FormControl(dataDialog.product.category, {validators: [Validators.required] }),
+                  price: new FormControl(dataDialog.product.price, Validators.required),
+                  description: new FormControl(dataDialog.product.description, { validators: [Validators.required] }),
                });
                 this.readOnly.next(dataDialog.disabled);
                 this.storeUser.pipe(select(selectUser)).subscribe(data => {
-                  if (!this.readOnly) {
+                  if (!dataDialog.disabled) {
                     this.addProductForm.controls['name'].setValue(data.user.displayName);
                     this.uid = data.user.uid;
                   }
