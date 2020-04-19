@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import {
     MatButtonModule, MatTableModule, MatSortModule, MatInputModule, MAT_DIALOG_DATA, MatToolbarModule,
-    MatIconModule, MatTooltipModule, MatListModule, MatSidenavModule,
+    MatIconModule, MatTooltipModule, MatListModule, MatSidenavModule, MatRadioModule,
     MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatMenuModule, MatTabsModule,
     MatTreeModule, MatCheckboxModule, MatPaginatorModule, MatSelectModule, MatCardModule, MatGridListModule
 } from '@angular/material';
@@ -26,6 +26,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatFormFieldModule,
         MatToolbarModule,
         MatInputModule,
+        MatRadioModule,
         MatDialogModule,
         MatIconModule,
         MatTooltipModule,
@@ -47,6 +48,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatButtonModule,
         MatSlideToggleModule,
         MatTableModule,
+        MatRadioModule,
         MatSortModule,
         MatToolbarModule,
         MatCheckboxModule,

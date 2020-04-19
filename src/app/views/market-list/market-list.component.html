@@ -6,7 +6,18 @@
         <button style="margin-left:10px;" mat-button mat-fab color="primary">
             <mat-icon>add_alert</mat-icon>
         </button>
+        <label style="margin-left:20px;" id="example-radio-group-label">Pick your display</label>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+            [(ngModel)]="favoriteDisplay">
+            <mat-radio-button class="example-radio-button" [value]="1">
+                Table
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" [value]="2">
+                Cards
+            </mat-radio-button>
+        </mat-radio-group>
     </div>
-    <app-market-table ></app-market-table>
-</div>
+    <app-market-table *ngIf='favoriteDisplay == 1'></app-market-table>
+    <app-market-tiles *ngIf='favoriteDisplay == 2'></app-market-tiles>
 
+</div>

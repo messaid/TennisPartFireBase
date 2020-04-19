@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Product } from './../../models/product';
 import { MarketAddComponent } from './../market-add/market-add.component';
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import { MatDialog } from '@angular/material';
 })
 export class MarketListComponent implements OnInit {
 
+  favoriteDisplay = 1;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
