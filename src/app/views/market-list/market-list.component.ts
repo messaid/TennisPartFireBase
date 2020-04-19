@@ -18,6 +18,9 @@ export class MarketListComponent implements OnInit {
     const dialogRef = this.dialog.open(MarketAddComponent, {
       width: '500px',
       disableClose: true,
+      data: {
+        message: 'api',
+      },
     });
   }
 }

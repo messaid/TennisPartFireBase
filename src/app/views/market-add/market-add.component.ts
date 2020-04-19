@@ -1,7 +1,7 @@
 import { MarketService } from './../../service/market.service';
 import { selectProducts, selectUser } from './../../store/selectors/user.selector';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { IUserState } from 'src/app/store/state/user.state';
@@ -31,8 +31,11 @@ export class MarketAddComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<MarketAddComponent>,
               private snackbar: SnackbarService,
+              @Inject(MAT_DIALOG_DATA) data,
               private spinnerService: SpinnerService, private marketService: MarketService,
-              private storeUser: Store<{ user: IUserState }>) { }
+              private storeUser: Store<{ user: IUserState }>) {
+                console.log(data.message);
+               }
 
   ngOnInit() {
     this.onChangesValuesPrice();

@@ -1,15 +1,12 @@
-import { setProducts } from './../store/actions/market.action';
 import { ProductEnum } from './../enums/product-enum';
 import { Product } from './../models/product';
-import { SpinnerService } from './spinner.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Collections } from '../constants/collections';
-import { MatDialogRef } from '@angular/material';
-import { MarketAddComponent } from '../views/market-add/market-add.component';
 import { Store } from '@ngrx/store';
 import * as MarketActions from '../store/actions/market.action';
 import { IMarketState } from '../store/state/market.state';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
