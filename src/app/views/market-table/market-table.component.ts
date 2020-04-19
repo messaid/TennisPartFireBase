@@ -35,6 +35,10 @@ export class MarketTableComponent implements OnInit {
     });
   }
 
+  showProduct(){
+    alert('clické')
+  }
+
   ngOnInit() {
     this.marketService.getAllProducts();
   }

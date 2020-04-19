@@ -14,3 +14,11 @@ table {
   th.mat-sort-header-sorted {
     color: black;
   }
+
+  tr.element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.element-row:not(.example-expanded-row):active {
+    background: #ad5106;
+  }

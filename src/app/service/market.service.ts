@@ -16,7 +16,6 @@ import { IMarketState } from '../store/state/market.state';
 })
 export class MarketService {
 
-  //list = new Array<Product>();
   constructor(private firestore: AngularFirestore,
               private storeMarket: Store<{ state: IMarketState }>) { }
 
