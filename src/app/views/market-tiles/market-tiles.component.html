@@ -1,29 +1,22 @@
 <div class="container list-class" fxFlexFill fxLayout="row wrap">
-    <!-- <mat-card class="example-card">
-        <mat-icon class="icon-dashboard">shopping_cart</mat-icon>
+    <mat-card class="example-card" (click)='showProduct(product)' *ngFor="let product of products$ | async">
+        <mat-icon *ngIf="product.category == 1" class="icon-dashboard">zoom_in</mat-icon>
+        <mat-icon *ngIf="product.category == 2" class="icon-dashboard">work</mat-icon>
+        <mat-icon *ngIf="product.category == 3" class="icon-dashboard">fingerprint</mat-icon>
+        <mat-icon *ngIf="product.category == 4" class="icon-dashboard">translate</mat-icon>
         <mat-card-content>
-            <p>
-                Buy and sell some weapons
-            </p>
+            <div class="title-card">
+                {{ product.title }}
+            </div>
+            <div class="type-card">
+                {{ product.category | productCategory }}
+            </div>
+            <div class="location-card">
+                31770 Colomiers
+            </div>
+            <div class="price-card">
+                {{ product.price }}€
+            </div>
         </mat-card-content>
     </mat-card>
-
-    <mat-card class="example-card">
-        <mat-icon class="icon-dashboard">youtube_searched_for</mat-icon>
-        <mat-card-content>
-            <p>
-                Looking for a knight
-            </p>
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card class="example-card">
-        <mat-icon class="icon-dashboard">play_circle_outline</mat-icon>
-        <mat-card-content>
-            <p>
-                Your story in the arena
-            </p>
-        </mat-card-content>
-    </mat-card> -->
-    it works
 </div>

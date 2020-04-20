@@ -1,5 +1,5 @@
 import { MarketService } from './../../service/market.service';
-import { selectProducts, selectUser } from './../../store/selectors/user.selector';
+import { selectProductsEnum, selectUser } from './../../store/selectors/user.selector';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -44,7 +44,7 @@ export class MarketAddComponent implements OnInit {
                     this.uid = data.user.uid;
                   }
               });
-                this.categories$ = this.storeUser.pipe(select(selectProducts));
+                this.categories$ = this.storeUser.pipe(select(selectProductsEnum));
 
               }
 

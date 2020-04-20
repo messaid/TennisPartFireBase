@@ -19,7 +19,7 @@ export const selectRankings = createSelector(
   (state: IUserState) => state.rankings
 );
 
-export const selectProducts = createSelector(
+export const selectProductsEnum = createSelector(
   selectSession,
   (state: IUserState) => state.products
 );
