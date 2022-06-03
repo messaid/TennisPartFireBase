@@ -104,11 +104,6 @@
     "@angular-devkit/core" "8.0.6"
     rxjs "6.4.0"
 
-"@angular-material-extensions/password-strength@^4.1.1":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@angular-material-extensions/password-strength/-/password-strength-4.1.2.tgz#302cb5143e883ff505f9add5dd193101edca0153"
-  integrity sha512-f7i6W2pPA2Ra1O0fr36L4S/Grqh0y/bDoCdI+2RGAIWQUwRBJcjTWUyP2gMV/HnFahHgIbBcavMPB/cBmTWcMA==
-
 "@angular/animations@~8.0.1":
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-8.0.3.tgz#9fc82919b8eb28d4d1a9ff93095907acb2a64e91"
@@ -179,12 +174,12 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@~8.0.1":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-8.0.3.tgz#f8a73cbeccce482261949190f1d15d4b0be3c1f2"
-  integrity sha512-IIxrtIPNuv2+HudER9J1nmPGiGJ4aRpeiFM9V4lSiSFv50RzuaoG60XqYIpUyuBdgvyKigcrfSbu9+x1vyN0hw==
+"@angular/core@~11.0.5":
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-11.0.5.tgz#b8c448c3cd4f6dae7327cc1ba4ee2aa29c8dbc26"
+  integrity sha512-XAXWQi7R3ucZXQwx9QK5jSKJeQyRJ53u2dQDpr7R5stzeCy1a5hrNOkZLg9zOTTPcth/6+FrOrRZP9SMdxtw3w==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.0.0"
 
 "@angular/fire@^5.1.1":
   version "5.4.2"
@@ -4921,13 +4916,6 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-ngx-auth-firebaseui@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/ngx-auth-firebaseui/-/ngx-auth-firebaseui-3.5.0.tgz#41b82c03785f354ef2576134bbcf9d62307e7a6b"
-  integrity sha512-hURdZ2Z7mF/P5h7eVwxjjqDaEbjHrWXolCEPtx/JVTKvCkpRQv5n8VeL2GqjobdHheEYC17cUW5ENoy1dmLN1A==
-  dependencies:
-    "@angular-material-extensions/password-strength" "^4.1.1"
-
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -7206,6 +7194,11 @@ tslib@1.11.1, tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
+
+tslib@^2.0.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 tslint@~5.15.0:
   version "5.15.0"
