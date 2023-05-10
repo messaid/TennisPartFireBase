@@ -104,11 +104,6 @@
     "@angular-devkit/core" "8.0.6"
     rxjs "6.4.0"
 
-"@angular-material-extensions/password-strength@^4.1.1":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@angular-material-extensions/password-strength/-/password-strength-4.1.2.tgz#302cb5143e883ff505f9add5dd193101edca0153"
-  integrity sha512-f7i6W2pPA2Ra1O0fr36L4S/Grqh0y/bDoCdI+2RGAIWQUwRBJcjTWUyP2gMV/HnFahHgIbBcavMPB/cBmTWcMA==
-
 "@angular/animations@~8.0.1":
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-8.0.3.tgz#9fc82919b8eb28d4d1a9ff93095907acb2a64e91"
@@ -4506,9 +4501,9 @@ lodash.tail@^4.1.1:
   integrity sha1-0jM6NtnncXyK0vfKyv7HwytERmQ=
 
 lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.4, lodash@^4.17.5:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log4js@^4.0.0:
   version "4.5.1"
@@ -4920,13 +4915,6 @@ neo-async@^2.5.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
-
-ngx-auth-firebaseui@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/ngx-auth-firebaseui/-/ngx-auth-firebaseui-3.5.0.tgz#41b82c03785f354ef2576134bbcf9d62307e7a6b"
-  integrity sha512-hURdZ2Z7mF/P5h7eVwxjjqDaEbjHrWXolCEPtx/JVTKvCkpRQv5n8VeL2GqjobdHheEYC17cUW5ENoy1dmLN1A==
-  dependencies:
-    "@angular-material-extensions/password-strength" "^4.1.1"
 
 nice-try@^1.0.4:
   version "1.0.5"
